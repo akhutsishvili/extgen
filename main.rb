@@ -66,11 +66,12 @@ class Model
 end
 
 class Store
-  
+
   def create(path, params)
     utils = Utils.new
+    store_path = "#{$config["project_name"]}.store.#{path}"
     code = [
-      "Ext.define('#{$config["project_name"]}.store.#{path}') {",
+      "Ext.define('#{store_path}') {",
       "    extend: 'Ext.data.Store',",
       "    model:  Ext.create('Ext.data.Model'),",
       "    proxy: {",
@@ -86,6 +87,7 @@ class Store
     if params.include? "-m"
       Model.new().create(path, params)
     end
+    store_path
   end
 end
 
@@ -110,6 +112,12 @@ class ComboBox
       "    alias: 'widget.#{element_alias}'",
       "    name: ''"
     ]
+
+    if @@params.include? "-s"
+      store_path = Store.new().create(@@path, @@params)
+      @code.push("    store: {xclass: '#{store_path}'},")
+    end
+
     if @@params.include? "-c"
       @code.push @@constructor_code
     end
@@ -118,10 +126,6 @@ class ComboBox
   end
 
   def create()
-    if @@params.include? "-s"
-      Store.new().create(@@path, @@params)
-    end
-    
     Utils.new().generate(@@path, "view", @code)
     self
   end
