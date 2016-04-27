@@ -68,7 +68,6 @@ end
 class Store
   
   def create(path, params)
-    @@project_name = 'eUni'
     utils = Utils.new
     code = [
       "Ext.define('#{$config["project_name"]}.store.#{path}') {",
@@ -91,7 +90,6 @@ class Store
 end
 
 class Element
-  @@project_name = 'eUni'
   @@constructor_code = [
     "    constructor: function (cfg) {",
     "       cfg = cfg || {}",
