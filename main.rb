@@ -1,3 +1,6 @@
+require 'yaml'
+$config = YAML.load_file('extgen_config.yml')
+
 class Utils
   def path_to_alias(path)
     t = path.split(".")
@@ -48,10 +51,9 @@ end
 
 class Model
   def create(path, params)
-    @@project_name = 'eUni'
     utils = Utils.new
     code = [
-      "Ext.define('#{@@project_name}.store.#{path}', {",
+      "Ext.define('#{$config["project_name"]}.store.#{path}', {",
       "    extend: 'Ext.data.Model',",
       "    fields: [{",
       "        name: 'id',",
@@ -69,7 +71,7 @@ class Store
     @@project_name = 'eUni'
     utils = Utils.new
     code = [
-      "Ext.define('#{@@project_name}.store.#{path}') {",
+      "Ext.define('#{$config["project_name"]}.store.#{path}') {",
       "    extend: 'Ext.data.Store',",
       "    model:  Ext.create('Ext.data.Model'),",
       "    proxy: {",
@@ -101,9 +103,9 @@ class Element
     element_alias = utils.path_to_alias path
     file_name = utils.path_to_file(path, "view")
     code = [
-      "Ext.define('#{@@project_name}.view.#{path}'') {",
+      "Ext.define('#{$config["project_name"]}.view.#{path}'') {",
       "    fieldLabel: '',",
-      "    extends: 'Ext.form.ComboBox',",
+      "    extend: 'Ext.form.ComboBox',",
       "    alias: 'widget.#{element_alias}'",
       "    name: ''"
     ]
