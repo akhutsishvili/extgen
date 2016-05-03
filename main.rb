@@ -1,7 +1,26 @@
 #!/usr/bin/env ruby
 $script_location = File.dirname(__FILE__)
 require 'yaml'
-$config = YAML.load_file("#{$script_location}/extgen_config.yml")
+$config = nil
+
+# find config file
+execute_dir = Dir.pwd
+search_dir = execute_dir.split("/")
+begin
+  search_dir = search_dir.join("/")
+  found_files = Dir.glob("#{search_dir}/extgen_config.yml")
+  if found_files.length == 1
+    $config = YAML.load_file("#{search_dir}/extgen_config.yml")
+    break
+  else
+    search_dir = search_dir.split("/")[0...-1]
+  end
+end while search_dir.length > 1
+
+# Report config not found error
+if $config.nil?
+  puts "Error: Can not find extgen_config.yml config file."
+end
 
 require_relative "#{$script_location}/Utils"
 require_relative "#{$script_location}/Store"
