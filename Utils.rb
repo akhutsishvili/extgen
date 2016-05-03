@@ -31,7 +31,8 @@ class Utils
   end
 
   def generate(path, type, code)
-    full_file_path = path_to_file(path, type)
+    full_file_path = $project_root + "/" + $config["path_to_ext_app"] + path_to_file(path, type)
+    puts "Generate #{type} in #{full_file_path}"
     create_dirs_for_path(full_file_path, type)
     write_to_file(full_file_path, code)
   end
