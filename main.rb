@@ -1,12 +1,14 @@
+#!/usr/bin/env ruby
+$script_location = File.dirname(__FILE__)
 require 'yaml'
-$config = YAML.load_file('extgen_config.yml')
+$config = YAML.load_file("#{$script_location}/extgen_config.yml")
 
-require_relative "Utils"
-require_relative "Store"
+require_relative "#{$script_location}/Utils"
+require_relative "#{$script_location}/Store"
 
 # Elements
-require_relative "elements/Grid"
-require_relative "elements/Combo"
+require_relative "#{$script_location}/elements/Grid"
+require_relative "#{$script_location}/elements/Combo"
 
 utils = Utils.new()
 options = utils.argv_parser
