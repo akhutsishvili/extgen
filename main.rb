@@ -61,8 +61,9 @@ end
 class Model
   def create(path, params)
     utils = Utils.new
+    model_path = "'#{$config["project_name"]}.model.#{path}'"
     code = [
-      "Ext.define('#{$config["project_name"]}.store.#{path}', {",
+      "Ext.define(#{model_path}, {",
       "    extend: 'Ext.data.Model',",
       "    fields: [{",
       "        name: 'id',",
@@ -71,6 +72,7 @@ class Model
       "})"
     ]
     utils.generate(path, "model", code)
+    model_path
   end
 end
 
@@ -79,10 +81,16 @@ class Store
   def create(path, params)
     utils = Utils.new
     store_path = "#{$config["project_name"]}.store.#{path}"
+    model_path = "'Ext.data.Model'"
+    
+    if params.include? "-m"
+      model_path = Model.new().create(path, params)
+    end
+
     code = [
       "Ext.define('#{store_path}') {",
       "    extend: 'Ext.data.Store',",
-      "    model:  Ext.create('Ext.data.Model'),",
+      "    model:  Ext.create(#{model_path}),",
       "    proxy: {",
       "        type: 'ajax',",
       "        url: 'rest/',",
@@ -93,9 +101,7 @@ class Store
       "})"
     ]
     utils.generate(path, "store", code)
-    if params.include? "-m"
-      Model.new().create(path, params)
-    end
+
     store_path
   end
 end
