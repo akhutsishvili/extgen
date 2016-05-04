@@ -54,4 +54,26 @@ class Utils
     end
     equalited_map
   end
+
+  def set_project_root()
+    execute_dir = Dir.pwd
+    search_dir = execute_dir.split("/")
+    begin
+      search_dir = search_dir.join("/")
+      found_files = Dir.glob("#{search_dir}/extgen_config.yml")
+      if found_files.length == 1
+        $config = YAML.load_file("#{search_dir}/extgen_config.yml")
+        $project_root = search_dir
+        break
+      else
+        search_dir = search_dir.split("/")[0...-1]
+      end
+    end while search_dir.length > 1
+
+    # Report config not found error
+    if $config.nil?
+      puts "Error: Can not find extgen_config.yml config file."
+      abort
+    end
+  end
 end
