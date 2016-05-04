@@ -3,8 +3,9 @@ require_relative "../Model"
 require_relative "../Store"
 
 class ComboBox
-  @path = ""
-  @params = ""
+  @path = nil
+  @params = nil
+  @code = nil
   @constructor_code = [
     "    constructor: function (cfg) {",
     "       cfg = cfg || {}",
