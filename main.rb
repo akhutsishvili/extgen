@@ -7,6 +7,7 @@ $config = nil
 
 require_relative "#{$script_location}/Utils"
 require_relative "#{$script_location}/Store"
+require_relative "#{$script_location}/Model"
 
 # Elements
 require_relative "#{$script_location}/elements/Grid"
@@ -28,4 +29,7 @@ if options[:type] == "grid"
 end
 if options[:type] == "store"
   Store.new(options[:path], options[:options]).create()
+end
+if options[:type] == "model"
+  Model.new(options[:path], options[:options]).create()
 end
