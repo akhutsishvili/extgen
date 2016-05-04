@@ -3,8 +3,9 @@ require_relative "../Model"
 require_relative "../Store"
 
 class Grid
-  @@path = ""
-  @@params = ""
+  @@path = nil
+  @code = nil
+  @@options = nil
   @@constructor_code = [
     "    constructor: function (cfg) {",
     "       cfg = cfg || {}",
@@ -18,14 +19,14 @@ class Grid
     utils = Utils.new
     element_alias = utils.path_to_alias path
     @code = [
-      "Ext.define('#{$config["project_name"]}.view.#{path}') {",
+      "Ext.define('#{$config["project_name"]}.view.#{path}', {",
       "    title: '',",
       "    extend: 'Ext.grid.Panel',",
       "    alias: 'widget.#{element_alias}'",
     ]
 
-    if @params.include? "-s"
-      store = Store.new(@path, @params)
+    if @options.include? "-s"
+      store = Store.new(@path, @options)
       store.create()
       @code.push("    store: {xclass: '#{store.get_definition()}'},")
     end
