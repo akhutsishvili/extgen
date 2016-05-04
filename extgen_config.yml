@@ -1,7 +1,7 @@
 # Extjs project name that goes to Ext.defaine('#{project_name}'.store.SomeStore')
-project_name: eUni
+project_name: MyProject
 
 # relative from extgen_config.yml to extjs app directory
 # example:
-# path_to_ext_app: src/main/webapp/app/
-path_to_ext_app: src/main/webapp/app/
+# path_to_ext_app: path/to/my/app
+path_to_ext_app: path/to/my/app
