@@ -4,7 +4,7 @@ require_relative "../Store"
 
 class ComboBox
   @path = nil
-  @params = nil
+  @options = nil
   @code = nil
   @constructor_code = [
     "    constructor: function (cfg) {",
@@ -12,9 +12,9 @@ class ComboBox
     "       var me = this",
     "    }"
   ]
-  def initialize(path, params)
+  def initialize(path, options)
     @path = path
-    @params = params
+    @options = options
     utils = Utils.new
     element_alias = utils.path_to_alias path
     @code = [
@@ -25,13 +25,13 @@ class ComboBox
       "    name: ''"
     ]
 
-    if @params.include? "-s"
-      store = Store.new(@path, @params)
+    if @options.include? "-s"
+      store = Store.new(@path, @options)
       store.create()
       @code.push("    store: {xclass: '#{store.get_definition()}'},")
     end
 
-    if @params.include? "-c"
+    if @options.include? "-c"
       @code.push @constructor_code
     end
     @code.push "})"
