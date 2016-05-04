@@ -1,5 +1,4 @@
 require_relative "../Utils"
-require_relative "../Model"
 require_relative "../Store"
 
 class ComboBox
