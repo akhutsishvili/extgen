@@ -20,8 +20,8 @@ class ComboBox
       "Ext.define('#{$config["project_name"]}.view.#{path}', {",
       "    fieldLabel: '',",
       "    extend: 'Ext.form.ComboBox',",
-      "    alias: 'widget.#{element_alias}'",
-      "    name: ''"
+      "    alias: 'widget.#{element_alias}',",
+      "    name: '',"
     ]
 
     if @options.include? "-s"
