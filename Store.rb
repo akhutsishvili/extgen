@@ -2,20 +2,26 @@ require_relative "Utils"
 require_relative "Model"
 
 class Store
+  @store_definition = nil
+  @model_definition = nil
+  @path = nil
+  @code = nil
+  def initialize(path, params)
 
-  def create(path, params)
-    utils = Utils.new
-    store_path = "#{$config["project_name"]}.store.#{path}"
-    model_path = "'Ext.data.Model'"
-    
+    @path = path
+    @store_definition = "#{$config["project_name"]}.store.#{path}"
+    @model_definition = "'Ext.data.Model'"
+
     if params.include? "-m"
-      model_path = Model.new().create(path, params)
+      model_instance = Model.new()
+      model_instance.create()
+      @model_definition = model_instance.get_model_definition
     end
 
-    code = [
-      "Ext.define('#{store_path}') {",
+    @code = [
+      "Ext.define('#{@store_definition}') {",
       "    extend: 'Ext.data.Store',",
-      "    model:  Ext.create(#{model_path}),",
+      "    model:  Ext.create(#{@model_definition}),",
       "    proxy: {",
       "        type: 'ajax',",
       "        url: 'rest/',",
@@ -25,8 +31,16 @@ class Store
       "    }",
       "})"
     ]
-    utils.generate(path, "store", code)
 
-    store_path
+    self
+  end
+
+  def get_definition
+    @store_definition
+  end
+  
+  def create
+    Utils.new().generate(@path, "store", @code)
+    self
   end
 end
