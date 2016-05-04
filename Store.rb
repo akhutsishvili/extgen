@@ -13,7 +13,7 @@ class Store
     @model_definition = "'Ext.data.Model'"
 
     if params.include? "-m"
-      model_instance = Model.new()
+      model_instance = Model.new(path, params)
       model_instance.create()
       @model_definition = model_instance.get_model_definition
     end
