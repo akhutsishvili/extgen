@@ -26,3 +26,6 @@ end
 if options[:type] == "grid"
   Grid.new(options[:path], options[:options]).create()
 end
+if options[:type] == "store"
+  Store.new(options[:path], options[:options]).create()
+end
