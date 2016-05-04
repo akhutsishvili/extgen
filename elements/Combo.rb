@@ -9,6 +9,7 @@ class ComboBox
     "    constructor: function (cfg) {",
     "       cfg = cfg || {}",
     "       var me = this",
+    "       me.callParent(arguments)",
     "    }"
   ]
   def initialize(path, options)

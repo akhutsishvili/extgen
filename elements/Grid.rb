@@ -9,6 +9,7 @@ class Grid
     "    constructor: function (cfg) {",
     "       cfg = cfg || {}",
     "       var me = this",
+    "       me.callParent(arguments)",
     "    }"
   ]
   
@@ -21,7 +22,7 @@ class Grid
       "Ext.define('#{$config["project_name"]}.view.#{path}', {",
       "    title: '',",
       "    extend: 'Ext.grid.Panel',",
-      "    alias: 'widget.#{element_alias}'",
+      "    alias: 'widget.#{element_alias}',",
     ]
 
     if @options.include? "-s"
