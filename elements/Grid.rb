@@ -13,8 +13,8 @@ class Grid
   ]
   
   def initialize(path, options)
-    @@path = path
-    @@options = options
+    @path = path
+    @options = options
     utils = Utils.new
     element_alias = utils.path_to_alias path
     @code = [
@@ -24,14 +24,15 @@ class Grid
       "    alias: 'widget.#{element_alias}'",
     ]
 
-    if @@options.include? "-s"
-      store_path = Store.new().create(@@path, @@options)
-      @code.push("    store: {xclass: '#{store_path}'},")
+    if @params.include? "-s"
+      store = Store.new(@path, @params)
+      store.create()
+      @code.push("    store: {xclass: '#{store.get_definition()}'},")
     end
     
     @code.push(create_fields options)
-    if @@options.include? "-c"
-      @code.push @@constructor_code
+    if @options.include? "-c"
+      @code.push @constructor_code
     end
     @code.push "})"
     self
@@ -56,7 +57,7 @@ class Grid
   end
 
   def create()
-    Utils.new().generate(@@path, "view", @code)
+    Utils.new().generate(@path, "view", @code)
     self
   end
 end
