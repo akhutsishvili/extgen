@@ -18,7 +18,7 @@ class ComboBox
     utils = Utils.new
     element_alias = utils.path_to_alias path
     @code = [
-      "Ext.define('#{$config["project_name"]}.view.#{path}') {",
+      "Ext.define('#{$config["project_name"]}.view.#{path}', {",
       "    fieldLabel: '',",
       "    extend: 'Ext.form.ComboBox',",
       "    alias: 'widget.#{element_alias}'",

@@ -19,7 +19,7 @@ class Store
     end
 
     @code = [
-      "Ext.define('#{@store_definition}') {",
+      "Ext.define('#{@store_definition}', {",
       "    extend: 'Ext.data.Store',",
       "    model:  Ext.create(#{@model_definition}),",
       "    proxy: {",
