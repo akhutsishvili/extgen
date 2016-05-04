@@ -6,14 +6,14 @@ class Store
   @model_definition = nil
   @path = nil
   @code = nil
-  def initialize(path, params)
+  def initialize(path, options)
 
     @path = path
     @store_definition = "#{$config["project_name"]}.store.#{path}"
     @model_definition = "'Ext.data.Model'"
 
-    if params.include? "-m"
-      model_instance = Model.new(path, params)
+    if options.include? "-m"
+      model_instance = Model.new(path, options)
       model_instance.create()
       @model_definition = model_instance.get_model_definition
     end
