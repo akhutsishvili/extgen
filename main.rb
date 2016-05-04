@@ -23,13 +23,12 @@ utils.set_project_root()        # for now this will set global variable $project
 options = utils.argv_parser
 if options[:type] == "combo"
   ComboBox.new(options[:path], options[:options]).create()
-end
-if options[:type] == "grid"
+elsif options[:type] == "grid"
   Grid.new(options[:path], options[:options]).create()
-end
-if options[:type] == "store"
+elsif options[:type] == "store"
   Store.new(options[:path], options[:options]).create()
-end
-if options[:type] == "model"
+elsif options[:type] == "model"
   Model.new(options[:path], options[:options]).create()
+else
+  puts "Error: Can not create type #{options[:type]}"
 end
