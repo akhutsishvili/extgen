@@ -1,0 +1,72 @@
+* What is it?
+  This software is simple Sencha Ext JS component generator.
+  It Follows Sencha Ext JS MVC pattern.
+  It was built for *my own purposes*.
+
+* Documentation
+** Examples
+   SYNOPSIS
+   #+BEGIN_SRC
+      extgen <Type> <Definition> <Options>
+   #+END_SRC
+
+   Create Combo
+   #+BEGIN_SRC
+      extgen combo Combo.definiton.GoesHere -s -m
+   #+END_SRC
+
+   Create Grid
+   #+BEGIN_SRC
+      extgen grid Grid.definition.GoesHere -s -m -fn-3
+   #+END_SRC
+   it will create grid with store, model and 3 fields
+
+   Create Store
+   #+BEGIN_SRC
+      extgen store Store.definition.GoesHere -m
+   #+END_SRC
+
+   Create Model
+   #+BEGIN_SRC
+      extgen model Model.definition.GoesHere
+   #+END_SRC
+
+** Types
+   - Grid
+   - Combo
+   - Store
+   - Model
+
+** Options
+   -c stands for constructor. It will insert
+   #+BEGIN_SRC javascript
+      constructor: function (cfg) {
+            cfg = cfg || {}
+            var me = this
+            me.items = []
+            me.callParent(arguments)
+      }
+   #+END_SRC
+
+   -fn how many fields will be generated.
+   If -fn=3 then it will generate 3 fields with text and dataIndex attributes
+   If is not present it will generate empty field attribute
+
+   -m will create and bind *Model* to store.
+   If -m is not present it will bind Ext.data.Model to created store
+
+   -s will create and bind *Store* to elements
+
+* Installation
+  Installation through Rake will be added soon.
+
+* Configuration
+  1. Put config (*extgen_config.yml*) file to your project root.
+  2. Set *project_name* in config file your project name.
+  3. Set *path_to_ext_app* in config to your Ext JS app directory.
+
+* License
+  Please see the file called LICENSE.
+
+* Reporting Bugs
+  Report Bugs to repository Issues
