@@ -3,8 +3,10 @@ require_relative "Utils"
 class Model
   @model_definition = nil
   @code = nil
+  @path = nil
 
   def initialize(path, params)
+    @path = path
     @model_definition = "'#{$config["project_name"]}.model.#{path}'"
     @code = [
       "Ext.define(#{@model_definition}, {",
@@ -24,6 +26,6 @@ class Model
   
   def create
     utils = Utils.new
-    utils.generate(path, "model", code)
+    utils.generate(@path, "model", @code)
   end
 end
