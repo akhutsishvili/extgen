@@ -1,17 +1,8 @@
 require_relative "../Utils"
-require_relative "../Store"
+require_relative "Element"
 
-class ComboBox
-  @path = nil
-  @options = nil
-  @code = nil
-  @constructor_code = [
-    "    constructor: function (cfg) {",
-    "       cfg = cfg || {}",
-    "       var me = this",
-    "       me.callParent(arguments)",
-    "    }"
-  ]
+class ComboBox < Element
+  
   def initialize(path, options)
     @path = path
     @options = options
@@ -25,22 +16,12 @@ class ComboBox
       "    name: '',"
     ]
 
-    if @options.include? "-s"
-      store = Store.new(@path, @options)
-      store.create()
-      @code.push("    store: {xclass: '#{store.get_definition()}'},")
-    end
+    self.create_store()
+    self.create_constructor()
 
-    if @options.include? "-c"
-      @code.push @constructor_code
-    end
     @code.push "})"
 
     self
   end
-
-  def create()
-    Utils.new().generate(@path, "view", @code)
-    self
-  end
+  
 end
