@@ -16,10 +16,7 @@ class Panel < Element
       "    alias: 'widget.#{element_alias}',",
     ]
 
-    # create layouts attrs if -layout=<type> present and -a or -align for type: align
     self.create_layout()
-
-    # create constructor if -c option is present is present
     self.create_constructor()
 
     @code.push "})"
