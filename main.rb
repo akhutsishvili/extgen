@@ -31,7 +31,7 @@ elsif options[:type] == "store"
 elsif options[:type] == "model"
   Model.new(options[:path], options[:options]).create()
 elsif options[:type] == "panel"
-  Panel.new(options[:path], options[:options])
+  Panel.new(options[:path], options[:options]).create()
 else
   puts "Error: Can not create type #{options[:type]}"
 end
