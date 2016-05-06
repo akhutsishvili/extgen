@@ -76,4 +76,16 @@ class Utils
       abort
     end
   end
+
+  def generate_attrs(attrs)
+    converted = []
+    l = attrs.length - 2
+    i = 0
+    until l < i do
+      converted.push(attrs[i].to_s + ",\n")
+      i +=1
+    end
+    converted.push attrs[attrs.length - 1]
+    converted.join()
+  end
 end
