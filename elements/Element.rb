@@ -38,7 +38,7 @@ class Element
     layout = ["    layout : {"]
     if eq_params.include? "-layout"
       attrs.push "        type: '#{eq_params['-layout']}'"
-      if @options.include? "-a" or @options.include? "-align"
+      if @options.include? "-as"
         attrs.push "        align: 'stretch'"
       end
     end
