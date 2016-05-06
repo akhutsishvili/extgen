@@ -31,12 +31,17 @@
       extgen model Model.definition.GoesHere
    #+END_SRC
 
+   Create Panel
+   #+BEGIN_SRC
+      extgen panel Panel.definition.GoesHere -layout=hbox -as
+   #+END_SRC
+   it will create panel with layout type hbox and align stretch
 ** Types
    - Grid
    - Combo
    - Store
    - Model
-
+   - Panel
 ** Options
    -c stands for constructor. It will insert
    #+BEGIN_SRC javascript
@@ -56,6 +61,9 @@
    If -m is not present it will bind Ext.data.Model to created store
    
    -s will create and bind *Store* to elements
+   
+   -layout=<type> will generate layout type.If -layout=hbox it will generate layout *type: hbox*
+   -as will generate *align: stretch* under layouts attributes
 
 * Installation
   Just run *make* and extgen command will be added to .bashrc
