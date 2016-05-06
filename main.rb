@@ -12,6 +12,7 @@ require_relative "#{$script_location}/Model"
 # Elements
 require_relative "#{$script_location}/elements/Grid"
 require_relative "#{$script_location}/elements/Combo"
+require_relative "#{$script_location}/elements/Panel"
 
 
 
@@ -29,6 +30,8 @@ elsif options[:type] == "store"
   Store.new(options[:path], options[:options]).create()
 elsif options[:type] == "model"
   Model.new(options[:path], options[:options]).create()
+elsif options[:type] == "panel"
+  Panel.new(options[:path], options[:options])
 else
   puts "Error: Can not create type #{options[:type]}"
 end
