@@ -1,17 +1,7 @@
 require_relative "../Utils"
-require_relative "../Store"
+require_relative "Element"
 
-class Grid
-  @@path = nil
-  @code = nil
-  @@options = nil
-  @@constructor_code = [
-    "    constructor: function (cfg) {",
-    "       cfg = cfg || {}",
-    "       var me = this",
-    "       me.callParent(arguments)",
-    "    }"
-  ]
+class Grid < Element
   
   def initialize(path, options)
     @path = path
@@ -25,16 +15,9 @@ class Grid
       "    alias: 'widget.#{element_alias}',",
     ]
 
-    if @options.include? "-s"
-      store = Store.new(@path, @options)
-      store.create()
-      @code.push("    store: {xclass: '#{store.get_definition()}'},")
-    end
-    
+    self.create_store()
     @code.push(create_fields options)
-    if @options.include? "-c"
-      @code.push @constructor_code
-    end
+    self.create_constructor()
     @code.push "})"
     self
   end
@@ -57,8 +40,4 @@ class Grid
     end
   end
 
-  def create()
-    Utils.new().generate(@path, "view", @code)
-    self
-  end
 end
