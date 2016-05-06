@@ -27,6 +27,22 @@ class Element
     end
     self
   end
+
+  def create_layout
+    utils = Utils.new()
+    eq_params = utils.options_equality_parser(@options)
+    attrs = []
+    layout = ["    layout : {"]
+    if eq_params.include? "-layout"
+      attrs.push "        type: '#{eq_params['-layout']}'"
+      if @options.include? "-a" or @options.include? "-align"
+        attrs.push "        align: 'stretch'"
+      end
+    end
+    
+    layout.push(utils.generate_attrs(attrs)).push("    }")
+    @code.push layout
+  end
   
   def create()
     Utils.new().generate(@path, "view", @code)
