@@ -54,11 +54,11 @@
 
    -m will create and bind *Model* to store.
    If -m is not present it will bind Ext.data.Model to created store
-
+   
    -s will create and bind *Store* to elements
 
 * Installation
-  Installation through Rake will be added soon.
+  Just run *make* and extgen command will be added to .bashrc
 
 * Configuration
   1. Put config (*extgen_config.yml*) file to your project root.
