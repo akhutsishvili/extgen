@@ -18,6 +18,15 @@ class Element
     end
     self
   end
+
+  def create_store
+    if @options.include? "-s"
+      store = Store.new(@path, @options)
+      store.create()
+      @code.push("    store: {xclass: '#{store.get_definition()}'},")
+    end
+    self
+  end
   
   def create()
     Utils.new().generate(@path, "view", @code)

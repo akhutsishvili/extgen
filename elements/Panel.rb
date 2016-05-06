@@ -11,23 +11,19 @@ class Panel < Element
     element_alias = utils.path_to_alias path
     @code = [
       "Ext.define('#{$config["project_name"]}.view.#{path}', {",
-      "    fieldLabel: '',",
-      "    extend: 'Ext.form.ComboBox',",
+      "    title: '',",
+      "    extend: 'Ext.panel.Panel',",
       "    alias: 'widget.#{element_alias}',",
-      "    name: '',"
     ]
 
-    if @options.include? "-s"
-      store = Store.new(@path, @options)
-      store.create()
-      @code.push("    store: {xclass: '#{store.get_definition()}'},")
-    end
+    # create store if -s option is present
+    self.create_store()
 
     # create constructor if -c option is present is present
     self.create_constructor()
 
     @code.push "})"
-    
+
     self
   end
 
