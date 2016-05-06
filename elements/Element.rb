@@ -1,4 +1,5 @@
 require_relative "../Utils"
+require_relative "../Store"
 
 class Element
   def initialize(path, options)
@@ -19,6 +20,7 @@ class Element
     self
   end
 
+  # create constructor if -c option is present is present
   def create_store
     if @options.include? "-s"
       store = Store.new(@path, @options)
@@ -28,6 +30,7 @@ class Element
     self
   end
 
+  # create layouts attrs if -layout=<type> present and -a or -align for type: align
   def create_layout
     utils = Utils.new()
     eq_params = utils.options_equality_parser(@options)
