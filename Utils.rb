@@ -1,4 +1,7 @@
 class Utils
+  def uncapitalize (s)
+    s[0, 1].downcase + s[1..-1]
+  end
   def path_to_alias(path)
     t = path.split(".")
     first, *rest, last = t
@@ -12,7 +15,7 @@ class Utils
   def path_to_file(path, type)
     *dirs, fname = path.split(".")
     standartized_dir_names = dirs.map do |d|
-      d.downcase + "/"
+      self.uncapitalize(d) + "/"
     end
     type + "/" +  standartized_dir_names.join + fname + ".js"
   end
