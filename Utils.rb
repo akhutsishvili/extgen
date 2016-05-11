@@ -7,7 +7,7 @@ class Utils
     first, *rest, last = t
 
     capped = rest.map do |p|
-      p.capitalize
+      p.sub(/\S/, &:upcase)
     end
     first + capped.join + last
   end
