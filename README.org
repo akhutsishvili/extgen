@@ -64,7 +64,7 @@
    If -m is not present it will bind Ext.data.Model to created store
    
    -s will create and bind *Store* to elements
-   
+   -pas will add paramsAsJson: true to store.proxy
    -layout=<type> will generate layout type.If -layout=hbox it will generate layout *type: hbox*
    -as will generate *align: stretch* under layouts attributes
 
