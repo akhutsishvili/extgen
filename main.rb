@@ -22,16 +22,25 @@ utils = Utils.new()
 utils.set_project_root()        # for now this will set global variable $project_root
 
 options = utils.argv_parser
+e = nil                         # element to generate
 if options[:type] == "combo"
-  ComboBox.new(options[:path], options[:options]).create()
+  e = ComboBox.new(options[:path], options[:options])
 elsif options[:type] == "grid"
-  Grid.new(options[:path], options[:options]).create()
+  e = Grid.new(options[:path], options[:options])
 elsif options[:type] == "store"
-  Store.new(options[:path], options[:options]).create()
+  e = Store.new(options[:path], options[:options])
 elsif options[:type] == "model"
-  Model.new(options[:path], options[:options]).create()
+  e = Model.new(options[:path], options[:options])
 elsif options[:type] == "panel"
-  Panel.new(options[:path], options[:options]).create()
+  e = Panel.new(options[:path], options[:options])
 else
   puts "Error: Can not create type #{options[:type]}"
+  abort
+end
+
+if options[:options].include? "-o"
+  e.output
+elsif
+  e.create
+  e.output_path_and_alias
 end

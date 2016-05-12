@@ -7,7 +7,6 @@ class Element
     @options = options
     @path = path
     @element_alias = Utils.new().path_to_alias path
-    self.output_path_and_alias
   end
 
   def create_constructor
@@ -53,6 +52,10 @@ class Element
   def output_path_and_alias
     puts "Definition: #{@path}"
     puts "Alias:      #{@element_alias}"
+  end
+
+  def output
+    puts @code
   end
   
   def create()
