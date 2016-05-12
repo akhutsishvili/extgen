@@ -3,8 +3,11 @@ require_relative "../Store"
 
 class Element
   def initialize(path, options)
-    @attributes = ['path', 'options', 'code', 'constructor_code']
-
+    @attributes = ['path', 'options', 'code', 'constructor_code', 'element_alias']
+    @options = options
+    @path = path
+    @element_alias = Utils.new().path_to_alias path
+    self.output_path_and_alias
   end
 
   def create_constructor
@@ -45,6 +48,11 @@ class Element
     
     layout.push(utils.generate_attrs(attrs)).push("    }")
     @code.push layout
+  end
+
+  def output_path_and_alias
+    puts "Definition: #{@path}"
+    puts "Alias:      #{@element_alias}"
   end
   
   def create()
