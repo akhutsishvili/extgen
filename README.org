@@ -1,3 +1,4 @@
+#+OPTIONS: toc:2 
 * What is it?
   This software is simple Sencha Ext JS component generator.
   It Follows Sencha Ext JS MVC pattern.
