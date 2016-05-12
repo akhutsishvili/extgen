@@ -23,7 +23,15 @@ class Store
       "    extend: 'Ext.data.Store',",
       "    model:  Ext.create(#{@model_definition}),",
       "    proxy: {",
-      "        type: 'ajax',",
+      "        type: 'ajax',"
+    ]
+
+    # params as json
+    if options.include? "-pas"
+      @code.push "        paramsAsJson: true,"
+    end
+    
+    @code.push [
       "        url: 'rest/',",
       "        reader: {",
       "            type: 'json'",
@@ -31,7 +39,7 @@ class Store
       "    }",
       "})"
     ]
-
+    @code.flatten
     self
   end
 
