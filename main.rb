@@ -44,9 +44,14 @@ else
   abort
 end
 
+# output generated code or put to file
 if options[:options].include? "-o"
   e.output
 elsif
   e.create
+end
+
+# display alias only if it parent class is element
+if e.superclass.name == "Elment"
   e.output_path_and_alias
 end
