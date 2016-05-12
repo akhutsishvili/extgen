@@ -8,6 +8,7 @@ $config = nil
 require_relative "#{$script_location}/Utils"
 require_relative "#{$script_location}/Store"
 require_relative "#{$script_location}/Model"
+require_relative "#{$script_location}/Controller"
 
 # Elements
 require_relative "#{$script_location}/elements/Grid"
@@ -36,6 +37,8 @@ elsif options[:type] == "panel"
   e = Panel.new(options[:path], options[:options])
 elsif options[:type] == "form"
   e = Form.new(options[:path], options[:options])
+elsif options[:type] == "controller"
+  e = Controller.new(options[:path], options[:options])
 else
   puts "Error: Can not create type #{options[:type]}"
   abort
