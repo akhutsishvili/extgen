@@ -39,34 +39,53 @@
       extgen panel Panel.definition.GoesHere -layout=hbox -as
    #+END_SRC
    it will create panel with layout type hbox and align stretch
-** Types
-   - Grid
-   - Combo
-   - Store
-   - Model
-   - Panel
-** Options
-   -c stands for constructor. It will insert
-   #+BEGIN_SRC javascript
-      constructor: function (cfg) {
-            cfg = cfg || {}
-            var me = this
-            me.items = []
-            me.callParent(arguments)
-      }
+
+   Create Form
+   #+BEGIN_SRC
+      extgen panel Form.definition.GoesHere -layout=vbox -as -fn=3
    #+END_SRC
+   It will create panel with layout type vbox and align stretch. Form will have 3 items
 
-   -fn how many fields will be generated.
-   If -fn=3 then it will generate 3 fields with text and dataIndex attributes
-   If is not present it will generate empty field attribute
-
-   -m will create and bind *Model* to store.
-   If -m is not present it will bind Ext.data.Model to created store
-   
-   -s will create and bind *Store* to elements
-   -pas will add paramsAsJson: true to store.proxy
-   -layout=<type> will generate layout type.If -layout=hbox it will generate layout *type: hbox*
-   -as will generate *align: stretch* under layouts attributes
+   Create Controller
+   #+BEGIN_SRC
+      extgen controller Controller.definition.GoesHere
+   #+END_SRC
+** Types and options
+*** General Options
+    - /-o/ outputs generated code
+*** Grid
+    - /-fn=<Number>/ number of fields generated for grid
+    - /-s/ create and bind *Store* to grid
+    - /-m/ create and bind *Model* to store
+    - /-c/ generate constrcutor code for element (see constructor code below)
+*** Combo
+    - /-s/ create and bind *Store* to grid
+    - /-m/ create and bind *Model* to store
+    - /-c/ generate constrcutor code for element (see constructor code below)
+*** Store
+    - /-m/ create and bind *Model* to store
+    - /-pas/ add paramsAsJson to store.proxy
+*** Model
+    Currently has no options.
+*** Panel
+    - /-fn=<Number>/ number of fields generated for form
+    - /layout=<String>/ generate layout type to elements layout attribute
+    - /-as/ generate *align: stretch* to elements layout attribute
+*** Form
+    - /layout=<String>/ generate layout type to elements layout attribute
+    - /-as/ generate *align: stretch* to elements layout attribute
+*** Controller
+    Currently has no options
+*** Codes
+**** Constructor
+#+BEGIN_SRC javascript
+constructor: function (cfg) {
+      cfg = cfg || {}
+      var me = this
+      me.items = []
+      me.callParent(arguments)
+}
+#+END_SRC
 
 * Configuration
   1. Put config (*extgen_config.yml*) file to your project root.
