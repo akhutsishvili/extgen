@@ -45,6 +45,12 @@ class Store
 
   def get_definition
     @store_definition
+    self
+  end
+
+  def output
+    puts @code
+    self
   end
   
   def create

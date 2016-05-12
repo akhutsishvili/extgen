@@ -23,9 +23,15 @@ class Model
   def get_model_definition
     @model_definition
   end
+
+  def output
+    puts @code
+    self
+  end
   
   def create
     utils = Utils.new
     utils.generate(@path, "model", @code)
+    self
   end
 end
