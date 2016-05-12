@@ -4,15 +4,12 @@ require_relative "Element"
 class Grid < Element
   
   def initialize(path, options)
-    @path = path
-    @options = options
-    utils = Utils.new
-    element_alias = utils.path_to_alias path
+    super
     @code = [
       "Ext.define('#{$config["project_name"]}.view.#{path}', {",
       "    title: '',",
       "    extend: 'Ext.grid.Panel',",
-      "    alias: 'widget.#{element_alias}',",
+      "    alias: 'widget.#{@element_alias}',",
     ]
 
     self.create_store()
