@@ -1,3 +1,5 @@
+require 'json'
+
 class String
   def numeric?
     return true if self =~ /\A\d+\Z/
@@ -144,4 +146,9 @@ class Utils
     end
     hash
   end
+
+  def generate_js_object(hash)
+       JSON.generate hash
+  end
+
 end

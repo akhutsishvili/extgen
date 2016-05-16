@@ -35,20 +35,4 @@ class TestUtils < Test::Unit::TestCase
                                                          "border:false"]))
   end
   
-  # def test_generate_js_object
-  #   result = [
-  #     "person: {",
-  #     "    name: 'testName',",
-  #     "    age: 32",
-  #     "},",
-  #     "border: false"
-  #   ]
-  #   assert_equal(result, Utils.new().generate_js_object({
-  #                                                         :person => {
-  #                                                           :name => 'testName',
-  #                                                           :age => 32
-  #                                                         },
-  #                                                         :border => false
-  #                                                       }))
-  # end
 end
