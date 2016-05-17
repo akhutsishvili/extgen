@@ -12,6 +12,7 @@ class Grid < Element
       "    alias: 'widget.#{@element_alias}',",
     ]
 
+    self.generate_colin_code
     self.create_store()
     @code.push(create_fields options)
     self.create_constructor()

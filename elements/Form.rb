@@ -13,6 +13,7 @@ class Form < Element
       "    bodyPadding: 10,",
       "    border: false,"
     ]
+    self.generate_colin_code
     self.create_layout()
     @code.push(create_fields options)
     self.create_constructor()

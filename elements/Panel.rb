@@ -11,7 +11,7 @@ class Panel < Element
       "    extend: 'Ext.panel.Panel',",
       "    alias: 'widget.#{@element_alias}',",
     ]
-
+    self.generate_colin_code
     self.create_layout()
     self.create_constructor()
 
