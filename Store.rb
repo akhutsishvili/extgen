@@ -26,13 +26,16 @@ class Store
       "        type: 'ajax',"
     ]
 
+    # url param
+    url = Utils.new().options_equality_parser(options)["-url"] or ''
+
     # params as json
     if options.include? "-pas"
       @code.push "        paramsAsJson: true,"
     end
     
     @code.push [
-      "        url: 'rest/',",
+      "        url: '#{url}',",
       "        reader: {",
       "            type: 'json'",
       "        }",
