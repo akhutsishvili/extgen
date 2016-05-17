@@ -144,7 +144,7 @@ class Utils
   end
 
   def generate_js_object(hash)
-       JSON.generate hash
+    JSON.generate(hash)[1..-2] + ','
   end
 
   def extract_colin_options

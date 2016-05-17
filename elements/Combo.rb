@@ -12,7 +12,7 @@ class ComboBox < Element
       "    alias: 'widget.#{@element_alias}',",
       "    name: '',"
     ]
-
+    self.generate_colin_code
     self.create_store()
     self.create_constructor()
 
