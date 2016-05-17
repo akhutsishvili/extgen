@@ -33,10 +33,6 @@ class ::Hash
 end
 
 class Utils
-  def deep_merge(second)
-    merger = proc { |key, v1, v2| Hash === v1 && Hash === v2 ? v1.merge(v2, &merger) : Array === v1 && Array === v2 ? v1 | v2 : [:undefined, nil, :nil].include?(v2) ? v1 : v2 }
-    self.merge(second.to_h, &merger)
-  end
   def uncapitalize (s)
     s[0, 1].downcase + s[1..-1]
   end
@@ -151,4 +147,9 @@ class Utils
        JSON.generate hash
   end
 
+  def extract_colin_options
+    args = self.argv_parser
+    args[:options].select { |o| o.include? ":" }
+  end
+  
 end
