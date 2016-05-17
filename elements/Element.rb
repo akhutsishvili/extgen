@@ -54,6 +54,14 @@ class Element
     puts "Alias:      #{@element_alias}"
   end
 
+  def generate_colin_code
+    u = Utils.new
+    colin_options = u.extract_colin_options
+    colin_code = colin_options.empty? ? '' : u.generate_js_object(u.parse_js_notation colin_options)
+    @code.push colin_code
+    self
+  end
+  
   def output
     puts @code
   end

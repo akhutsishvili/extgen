@@ -1,3 +1,37 @@
+require 'json'
+
+class String
+  def numeric?
+    return true if self =~ /\A\d+\Z/
+    true if Float(self) rescue false
+  end
+
+  def to_bool
+    return true   if self == true   || self =~ (/(true|t|yes|y|1)$/i)
+    return false  if self == false  || self =~ (/(false|f|no|n|0)$/i)
+    raise ArgumentError.new("invalid value for Boolean: \"#{self}\"")
+  end
+
+  def eval_value
+    r = nil
+    if self.numeric?
+      r = self.to_i
+    elsif self == "true" || self == "false"
+      r = self.to_bool
+    else
+      r = self
+    end
+    r
+  end
+end  
+
+class ::Hash
+    def deep_merge(second)
+        merger = proc { |key, v1, v2| Hash === v1 && Hash === v2 ? v1.merge(v2, &merger) : Array === v1 && Array === v2 ? v1 | v2 : [:undefined, nil, :nil].include?(v2) ? v1 : v2 }
+        self.merge(second.to_h, &merger)
+    end
+end
+
 class Utils
   def uncapitalize (s)
     s[0, 1].downcase + s[1..-1]
@@ -91,4 +125,31 @@ class Utils
     converted.push attrs[attrs.length - 1]
     converted.join()
   end
+
+  def export_js_notation(notation)
+    path, value = notation.split ":"
+    path = path.split(".").map { |m| m.to_sym }
+    value = value.tr("'", "").eval_value
+    {}.merge!((path + [value]).reverse.reduce { |s,e| { e => s } }) { |k,o,n| o.merge(n) }
+
+  end
+  
+  def parse_js_notation(notations)
+    hash = {}
+    notations.each do |n|
+      e = export_js_notation n
+      hash = hash.deep_merge e
+    end
+    hash
+  end
+
+  def generate_js_object(hash)
+    JSON.generate(hash)[1..-2] + ','
+  end
+
+  def extract_colin_options
+    args = self.argv_parser
+    args[:options].select { |o| o.include? ":" }
+  end
+  
 end

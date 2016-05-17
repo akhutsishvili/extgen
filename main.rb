@@ -52,6 +52,6 @@ elsif
 end
 
 # display alias only if it parent class is element
-if e.superclass.name == "Elment"
+if e.methods.include? 'output_path_and_alias'
   e.output_path_and_alias
 end

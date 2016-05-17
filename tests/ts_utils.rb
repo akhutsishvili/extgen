@@ -11,4 +11,35 @@ class TestUtils < Test::Unit::TestCase
   def test_definition_to_alias
     assert_equal("moduleAwesomeCombosMyCombo", Utils.new().path_to_alias(@@path))
   end
+
+  def test_extract_colin_options
+    ARGV.clear
+    ARGV << "element" << "path" << "-c" << "person.name:'testName'" << "border:false" 
+    assert_equal(["person.name:'testName'",
+                  "border:false"], Utils.new().extract_colin_options)
+  end
+
+  def test_export_js_notation
+    assert_equal({:person => {:name => 'testName'}}, Utils.new().export_js_notation("person.name:'testName'"))
+  end
+  
+  def test_eval_values
+    assert_equal("test", "test".eval_value)
+    assert_equal(1, "1".eval_value)
+    assert_equal(false, "false".eval_value)
+  end
+
+  def test_parse_js_notation
+    result = {
+      :person => {
+        :name => 'testName',
+        :age => 32
+      },
+      :border => false
+    }
+    assert_equal(result, Utils.new().parse_js_notation(["person.name:'testName'",
+                                                        "person.age:32",
+                                                        "border:false"]))
+  end
+  
 end
