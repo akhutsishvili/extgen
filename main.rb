@@ -6,52 +6,12 @@ $project_root = ""
 $config = nil
 
 require_relative "#{$script_location}/Utils"
-require_relative "#{$script_location}/Store"
-require_relative "#{$script_location}/Model"
-require_relative "#{$script_location}/Controller"
+require_relative "#{$script_location}/Generator"
+require_relative "#{$script_location}/Script"
 
-# Elements
-require_relative "#{$script_location}/elements/Grid"
-require_relative "#{$script_location}/elements/Combo"
-require_relative "#{$script_location}/elements/Panel"
-require_relative "#{$script_location}/elements/Form"
-
-
-
-utils = Utils.new()
+u = Utils.new()
 
 # find config file
-utils.set_project_root()        # for now this will set global variable $project_root
-
-options = utils.argv_parser
-e = nil                         # element to generate
-if options[:type] == "combo"
-  e = ComboBox.new(options[:path], options[:options])
-elsif options[:type] == "grid"
-  e = Grid.new(options[:path], options[:options])
-elsif options[:type] == "store"
-  e = Store.new(options[:path], options[:options])
-elsif options[:type] == "model"
-  e = Model.new(options[:path], options[:options])
-elsif options[:type] == "panel"
-  e = Panel.new(options[:path], options[:options])
-elsif options[:type] == "form"
-  e = Form.new(options[:path], options[:options])
-elsif options[:type] == "controller"
-  e = Controller.new(options[:path], options[:options])
-else
-  puts "Error: Can not create type #{options[:type]}"
-  abort
-end
-
-# output generated code or put to file
-if options[:options].include? "-o"
-  e.output
-elsif
-  e.create
-end
-
-# display alias only if it parent class is element
-if e.methods.include? 'output_path_and_alias'
-  e.output_path_and_alias
-end
+u.set_project_root()        # for now this will set global variable $project_root
+params = u.parse_argv
+Generator.new(params[:tpl], params[:path], params[:options]).generate().create()
