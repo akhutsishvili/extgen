@@ -3,14 +3,15 @@ class Script
 
   def initialize g
     @generator = g
+    @path = @generator.instance_variable_get(:@path)
+    @options = @generator.instance_variable_get(:@options)
   end
   
   def create_store
-    path =  @generator.instance_variable_get(:@path)
-    o = @generator.instance_variable_get(:@options)
-    Generator.new('store', path, o).generate().create().get_full_path
+    
+    Generator.new('store', @path, @options).generate().create().get_full_path
     # create model
-    # if @generator.option? "-m"
+    # if @options.option? "-m"
     #   self.create_model
     # end
   end
