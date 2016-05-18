@@ -1,0 +1,18 @@
+Ext.define('<%=$config[:project_name]%>.view.<%=@path%>', {
+    extend: 'Ext.form.ComboBox',
+    alias: 'widget.<%=@element_alias%>',
+    name: '',
+    fieldLabel: '',
+    valueField: '',
+    displayField: '',
+    <% if option? '-s' %>
+    <% Script.new(self).create_store %>
+    <% end %>
+    <% if option? '-c' %>
+    constructor: function (cfg) {
+        cfg = cfg || {}
+        var me = this
+        me.callParent(arguments)
+    }
+    <% end %>
+})

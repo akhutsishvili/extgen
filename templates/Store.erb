@@ -1,0 +1,14 @@
+Ext.define('<%=$config[:project_name]%>.store.<%=@path%>', {
+    extend: 'Ext.data.Store',
+    <%#model:  Ext.create('#{@model_definition}'), %>
+    proxy: {
+        type: 'ajax',
+        url: '<%=@eq_options[:url] or ''%>',
+    <% if option? '-pas' %>
+        paramsAsJson: true,
+    <% end %>
+        reader: {
+            type: 'json'
+        }
+    }
+})
