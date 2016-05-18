@@ -8,15 +8,10 @@ class Script
   end
   
   def create_store
-    
     Generator.new('store', @path, @options).generate().create().get_full_path
-    # create model
-    # if @options.option? "-m"
-    #   self.create_model
-    # end
   end
 
   def create_model
-
+    Generator.new('model', @path, @options).generate().create().get_full_path
   end
 end
