@@ -48,7 +48,7 @@ class Generator
   
   def generate
     self.set_tpl_file
-    self.generate_code_from_template
+    self.generate_code_from_template().squeeze("\n")
     self
   end
 
