@@ -8,7 +8,7 @@ Ext.define('<%=$config[:project_name]%>.store.<%=@path%>', {
     proxy: {
         type: 'ajax',
         url: '<%=@eq_options[:url] or ''%>',
-    <% if option? '-pas' %>
+    <% if option? '-paj' %>
         paramsAsJson: true,
     <% end %>
         reader: {
