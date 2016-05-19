@@ -116,39 +116,6 @@ class Utils
     end
   end
 
-  def generate_attrs(attrs)
-    converted = []
-    l = attrs.length - 2
-    i = 0
-    until l < i do
-      converted.push(attrs[i].to_s + ",\n")
-      i +=1
-    end
-    converted.push attrs[attrs.length - 1]
-    converted.join()
-  end
-
-  def export_js_notation(notation)
-    path, value = notation.split ":"
-    path = path.split(".").map { |m| m.to_sym }
-    value = value.tr("'", "").eval_value
-    {}.merge!((path + [value]).reverse.reduce { |s,e| { e => s } }) { |k,o,n| o.merge(n) }
-
-  end
-  
-  def parse_js_notation(notations)
-    hash = {}
-    notations.each do |n|
-      e = export_js_notation n
-      hash = hash.deep_merge e
-    end
-    hash
-  end
-
-  def generate_js_object(hash)
-    JSON.generate(hash)[1..-2] + ','
-  end
-
   def extract_colin_options
     args = self.argv_parser
     args[:options].select { |o| o.include? ":" }
