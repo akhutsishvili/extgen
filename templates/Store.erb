@@ -1,0 +1,18 @@
+<% if option? '-m' %>
+    <% model = Script.new(self).create_model() %>
+<% end %>
+
+Ext.define('<%=$config[:project_name]%>.store.<%=@path%>', {
+    extend: 'Ext.data.Store',
+    model: Ext.create('<%=model or 'Ext.data.Model'%>'),
+    proxy: {
+        type: 'ajax',
+        url: '<%=@eq_options[:url] or ''%>',
+    <% if option? '-paj' %>
+        paramsAsJson: true,
+    <% end %>
+        reader: {
+            type: 'json'
+        }
+    }
+})

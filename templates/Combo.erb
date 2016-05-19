@@ -1,0 +1,20 @@
+<% if option? '-s' %>
+    <% store = Script.new(self).create_store() %>
+<% end %>
+
+Ext.define('<%=@full_path%>', {
+    extend: 'Ext.form.ComboBox',
+    alias: 'widget.<%=@element_alias%>',
+    name: '',
+    fieldLabel: '',
+    valueField: '',
+    displayField: '',
+    store: {xclass: '<%=store or 'Ext.data.Store'%>'},
+    <% if option? '-c' %>
+    constructor: function (cfg) {
+        cfg = cfg || {}
+        var me = this
+        me.callParent(arguments)
+    }
+    <% end %>
+})

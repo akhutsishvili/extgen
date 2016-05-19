@@ -1,0 +1,8 @@
+Combo: view
+Grid: view
+Form: view
+Panel: view
+Window: view
+Store: store
+Model: model
+Controller: controller

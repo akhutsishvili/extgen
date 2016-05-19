@@ -1,0 +1,26 @@
+Ext.define('<%=@full_path%>', {
+    extend: 'Ext.form.Panel',
+    title: '',
+    alias: 'widget.<%=@element_alias%>',
+    bodyPadding: '10px',
+    border: false,
+    layout: {
+        type: '<%=@eq_options[:layout] or 'form'%>',
+        align: 'stretch'
+    },
+    <% if option? '-c' %>
+    constructor: function (cfg) {
+        cfg = cfg || {}
+        var me = this
+        me.items = []
+        me.callParent(arguments)
+    }
+    <% else %>
+    items: [],
+    buttons: [{
+        name: 'replace',
+        scale: 'medium',
+        iconClas: 'icon'
+    }]
+    <% end %>
+})

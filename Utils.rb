@@ -67,16 +67,16 @@ class Utils
     out_file.close
   end
 
-  def generate(path, type, code)
-    full_file_path = $project_root + "/" + $config["path_to_ext_app"] + path_to_file(path, type)
+  def create_file(path, type, code)
+    full_file_path = $project_root + "/" + $config[:path_to_ext_app] + path_to_file(path, type)
     puts "Generate #{type} in #{full_file_path}"
     create_dirs_for_path(full_file_path, type)
     write_to_file(full_file_path, code)
   end
 
-  def argv_parser
+  def parse_argv
     {
-      :type => ARGV[0],
+      :tpl => ARGV[0],
       :path => ARGV[1],
       :options => ARGV[2..-1]
     }
@@ -85,9 +85,10 @@ class Utils
   def options_equality_parser(options)
     equalited_map = {}
     contains_equality = options.select do |o| o.include? "=" end
-    contains_equality.each do |element|
-      parsed = element.split("=")
-      equalited_map[parsed[0]] = parsed[1]
+    contains_equality.map do |element|
+      key, value = element.split("=")
+      key = key.gsub("-", "").to_sym
+      equalited_map[key] = value
     end
     equalited_map
   end
@@ -99,7 +100,8 @@ class Utils
       search_dir = search_dir.join("/")
       found_files = Dir.glob("#{search_dir}/extgen_config.yml")
       if found_files.length == 1
-        $config = YAML.load_file("#{search_dir}/extgen_config.yml")
+        config = YAML.load_file("#{search_dir}/extgen_config.yml")
+        $config = config.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
         $project_root = search_dir
         break
       else
@@ -114,42 +116,15 @@ class Utils
     end
   end
 
-  def generate_attrs(attrs)
-    converted = []
-    l = attrs.length - 2
-    i = 0
-    until l < i do
-      converted.push(attrs[i].to_s + ",\n")
-      i +=1
-    end
-    converted.push attrs[attrs.length - 1]
-    converted.join()
-  end
-
-  def export_js_notation(notation)
-    path, value = notation.split ":"
-    path = path.split(".").map { |m| m.to_sym }
-    value = value.tr("'", "").eval_value
-    {}.merge!((path + [value]).reverse.reduce { |s,e| { e => s } }) { |k,o,n| o.merge(n) }
-
-  end
-  
-  def parse_js_notation(notations)
-    hash = {}
-    notations.each do |n|
-      e = export_js_notation n
-      hash = hash.deep_merge e
-    end
-    hash
-  end
-
-  def generate_js_object(hash)
-    JSON.generate(hash)[1..-2] + ','
-  end
-
   def extract_colin_options
     args = self.argv_parser
     args[:options].select { |o| o.include? ":" }
+  end
+
+  def get_tpl_type tpl
+    types = YAML.load_file("#{$script_location}/templates/tpl_types.yml")
+    types = types.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+    types[tpl.to_sym]
   end
   
 end
