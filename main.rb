@@ -14,6 +14,12 @@ u = Utils.new()
 # find config file
 u.set_project_root()        # for now this will set global variable $project_root
 params = u.parse_argv
+
+
+if params.has_key?(:tpl) or params.has_key?(:path)
+  raise Exception.new("Error: Missing argument Template Type or Template Path")
+end
+
 g = Generator.new(params[:tpl], params[:path], params[:options]).generate()
 
 if params[:options].include? "-o"
