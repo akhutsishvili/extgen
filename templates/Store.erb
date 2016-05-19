@@ -4,7 +4,7 @@
 
 Ext.define('<%=$config[:project_name]%>.store.<%=@path%>', {
     extend: 'Ext.data.Store',
-    model: Ext.create('<%=model or 'Ext.data.Model'%>')
+    model: Ext.create('<%=model or 'Ext.data.Model'%>'),
     proxy: {
         type: 'ajax',
         url: '<%=@eq_options[:url] or ''%>',

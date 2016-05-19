@@ -9,7 +9,7 @@ Ext.define('<%=@full_path%>', {
     fieldLabel: '',
     valueField: '',
     displayField: '',
-    store: {xclass: '<%=store or 'Ext.data.Store'%>'}
+    store: {xclass: '<%=store or 'Ext.data.Store'%>'},
     <% if option? '-c' %>
     constructor: function (cfg) {
         cfg = cfg || {}
