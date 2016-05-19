@@ -1,0 +1,19 @@
+<% if option? '-s' %>
+    <% store = Script.new(self).create_store() %>
+<% end %>
+
+Ext.define('<%=@full_path%>', {
+    title: '',
+    extend: 'Ext.grid.Panel',
+    alias: 'widget.<%=@element_alias%>',
+    store: {xclass: '<%=store or 'Ext.data.Store'%>'}
+    border: false,
+    columns: [],
+    <% if option? '-c' %>
+    constructor: function (cfg) {
+        cfg = cfg || {}
+        var me = this
+        me.callParent(arguments)
+    }
+    <% end %>
+})
