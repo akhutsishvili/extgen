@@ -1,0 +1,15 @@
+Ext.define('<%=@full_path%>', {
+    extend: 'Ext.window.Window',
+    title: '',
+    alias: 'widget.<%=@element_alias%>',
+    <% if option? '-c' %>
+    constructor: function (cfg) {
+        cfg = cfg || {}
+        var me = this
+        me.items = []
+        me.callParent(arguments)
+    }
+    <% else %>
+    items: []
+    <% end %>
+})
