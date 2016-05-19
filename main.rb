@@ -14,4 +14,10 @@ u = Utils.new()
 # find config file
 u.set_project_root()        # for now this will set global variable $project_root
 params = u.parse_argv
-Generator.new(params[:tpl], params[:path], params[:options]).generate().create()
+g = Generator.new(params[:tpl], params[:path], params[:options]).generate()
+
+if params[:options].include? "-o"
+  g.print
+else
+  g.create
+end

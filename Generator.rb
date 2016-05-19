@@ -52,6 +52,10 @@ class Generator
     self
   end
 
+  def print
+    puts @code
+  end
+
   def create
     Utils.new().create_file(@path, @tpl_type, @code)
     self
