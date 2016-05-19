@@ -1,0 +1,19 @@
+Ext.define('<%=@full_path%>', {
+    extend: 'Ext.panel.Panel',
+    bodyPadding: '10px',
+    border: false,
+    layout: {
+        type: '<%=@eq_options[:layout] or 'form'%>',
+        align: 'stretch'
+    },
+    <% if option? '-c' %>
+    constructor: function (cfg) {
+        cfg = cfg || {}
+        var me = this
+        me.items = []
+        me.callParent(arguments)
+    }
+    <% else %>
+    items: []
+    <% end %>
+})
