@@ -35,7 +35,7 @@ class Generator
     template = File.read @tpl_file
     renderer = ERB.new(template)
 
-    @code = renderer.result(binding)
+    @code = renderer.result(binding).gsub /^$\n/, ''
   end
 
   def option? option
@@ -48,7 +48,7 @@ class Generator
   
   def generate
     self.set_tpl_file
-    self.generate_code_from_template().squeeze("\n")
+    self.generate_code_from_template()
     self
   end
 
