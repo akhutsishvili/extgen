@@ -3,118 +3,97 @@
   This software is simple Sencha Ext JS component generator.
   It Follows Sencha Ext JS MVC pattern.
   It was built for *my own purposes*.
-
-* Installation
-  Just run *make* and extgen command will be added to .bashrc
-
+  
 * Documentation
-** Examples
+** CLI
    SYNOPSIS
    #+BEGIN_SRC
-      extgen <Type> <Definition> <Options>
+        extgen <Template> <Definition> <Options>
    #+END_SRC
-
-   Create Combo
-   #+BEGIN_SRC
-      extgen combo Combo.definiton.GoesHere -s -m
-   #+END_SRC
-
-   Create Grid
-   #+BEGIN_SRC
-      extgen grid Grid.definition.GoesHere -s -m -fn-3
-   #+END_SRC
-   it will create grid with store, model and 3 fields
-
-   Create Store
-   #+BEGIN_SRC
-      extgen store Store.definition.GoesHere -m
-   #+END_SRC
-
-   Create Model
-   #+BEGIN_SRC
-      extgen model Model.definition.GoesHere
-   #+END_SRC
-
-   Create Panel
-   #+BEGIN_SRC
-      extgen panel Panel.definition.GoesHere -layout=hbox -as
-   #+END_SRC
-   it will create panel with layout type hbox and align stretch
-
-   Create Form
-   #+BEGIN_SRC
-      extgen panel Form.definition.GoesHere -layout=vbox -as -fn=3
-   #+END_SRC
-   It will create panel with layout type vbox and align stretch. Form will have 3 items
-
-   Create Controller
-   #+BEGIN_SRC
-      extgen controller Controller.definition.GoesHere
-   #+END_SRC
-** Types and options
+** Templates and options
 *** General Options
-    - /-o/ outputs generated code
-*** Colon notation
-    Generate attributes/objects from input.At the moment implementation is little bit messy, but it works.Curently work on combo,form,grid,panel
-    #+BEGIN_SRC
-        extgen form Definiton.goes.Here border:false fieldDefaults.labelAlign:'left' fieldDefaults.labelWidth:100
-    #+END_SRC
-    will generate
-    #+BEGIN_SRC javascript
-       Ext.define('MyProject.view.Definiton.goes.Here', {
-           title: '',
-           extend: 'Ext.form.Panel',
-           alias: 'widget.DefinitonGoesHere',
-           bodyPadding: 10,
-           border: false,
-       "border":false,"fieldDefaults":{"labelAlign":"left","labelWidth":100},
-           layout : {
-       
-           }
-           items: [],
-       })
-
-    #+END_SRC
+    - /-o/ output generated code
 *** Grid
-    - /-fn=<Number>/ number of fields generated for grid
+    - /-fn=<Number>/ number of fields generated for grid (coming soon)
     - /-s/ create and bind *Store* to grid
     - /-m/ create and bind *Model* to store
-    - /-c/ generate constrcutor code for element (see constructor code below)
+    - /-c/ generate constrcutor code
+**** Example
+     Create grid with store, model and 3 fields
+     #+BEGIN_SRC
+        extgen grid Grid.definition.GoesHere -s -m -fn-3
+     #+END_SRC
 *** Combo
     - /-s/ create and bind *Store* to grid
     - /-m/ create and bind *Model* to store
-    - /-c/ generate constrcutor code for element (see constructor code below)
+    - /-c/ generate constrcutor code
+**** Example
+     Create Combobox with store and model
+     #+BEGIN_SRC
+        extgen combo Combo.definiton.GoesHere -s -m
+     #+END_SRC
 *** Store
     - /-m/ create and bind *Model* to store
-    - /-pas/ add paramsAsJson to store.proxy
+    - /-paj/ add paramsAsJson to store.proxy
     - /-url=<String>/ sets proxy.url
+**** Example
+     Create Store with model
+     #+BEGIN_SRC
+        extgen store Store.definition.GoesHere -m
+     #+END_SRC
 *** Model
-    Currently has no options.
-*** Panel
-    - /-fn=<Number>/ number of fields generated for form
-    - /layout=<String>/ generate layout type to elements layout attribute
-    - /-as/ generate *align: stretch* to elements layout attribute
-*** Form
-    - /layout=<String>/ generate layout type to elements layout attribute
-    - /-as/ generate *align: stretch* to elements layout attribute
+    Currently has no options
+**** Example
+     Create Model
+     #+BEGIN_SRC
+        extgen model Model.definition.GoesHere
+     #+END_SRC
+*** Panel | Form
+    - /-layout=<String>/ set layout type
+    - /-c/ generate constrcutor code
+**** Example
+     Create Panel
+     #+BEGIN_SRC
+        extgen panel Panel.definition.GoesHere -layout=hbox
+     #+END_SRC
 *** Controller
     Currently has no options
-*** Codes
-**** Constructor
-#+BEGIN_SRC javascript
-constructor: function (cfg) {
-      cfg = cfg || {}
-      var me = this
-      me.items = []
-      me.callParent(arguments)
-}
-#+END_SRC
+**** Example
+     Create Controller
+     #+BEGIN_SRC
+        extgen controller Controller.definition.GoesHere
+     #+END_SRC
+
+* Installation
+  Move to extgen directory and type
+  #+BEGIN_SRC
+       echo alias extgen=\"ruby $(pwd)/main.rb\" >> ~/.bashrc
+  #+END_SRC
 
 * Configuration
   1. Put config (*extgen_config.yml*) file to your project root.
   2. Set *project_name* in config file your project name.
   3. Set *path_to_ext_app* in config to your Ext JS app directory.
 
+* Templates
+  This software uses ERB Templates.
+** Create New Template
+   - <Template> - capitalized template path without .erb
+   - <Type> - model, view, controller or something else
+
+   1. Add template ERB file to templates directory
+   2. Add <Template>: <Type> to templates/tpl_types.yml
+** Using Options In Template
+   In template /option? <String>/ checks if <String> is present.
+   @eq_options[:option] returns value from command line argument -option=<Value>.
+** Scripts
+   Script class contains methods that should be called from template.
+   Call Script class with Generator instance.
+   Example:
+   #+BEGIN_SRC
+        Script.new(self).some_method()
+   #+END_SRC
+   
 * License
   Please see the file called LICENSE.
 
