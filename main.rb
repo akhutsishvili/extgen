@@ -16,7 +16,7 @@ u.set_project_root()        # for now this will set global variable $project_roo
 params = u.parse_argv
 
 
-if params.has_key?(:tpl) or params.has_key?(:path)
+if !params.has_key?(:tpl) or !params.has_key?(:path)
   raise Exception.new("Error: Missing argument Template Type or Template Path")
 end
 
