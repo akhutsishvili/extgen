@@ -8,9 +8,12 @@
 ** CLI
    SYNOPSIS
    #+BEGIN_SRC
-        extgen <Template> <Definition> <Options>
+        extgen <Command> <Template> <Definition> <Options>
    #+END_SRC
 ** Templates and options
+*** Command
+    - generate or gen to generate file
+    - remove or rm to remove file
 *** General Options
     - /-o/ output generated code
 *** Grid
@@ -30,7 +33,7 @@
 **** Example
      Create Combobox with store and model
      #+BEGIN_SRC
-        extgen combo Combo.definiton.GoesHere -s -m
+        extgen generate combo Combo.definiton.GoesHere -s -m
      #+END_SRC
 *** Store
     - /-m/ create and bind *Model* to store
@@ -39,14 +42,14 @@
 **** Example
      Create Store with model
      #+BEGIN_SRC
-        extgen store Store.definition.GoesHere -m
+        extgen generate store Store.definition.GoesHere -m
      #+END_SRC
 *** Model
     Currently has no options
 **** Example
      Create Model
      #+BEGIN_SRC
-        extgen model Model.definition.GoesHere
+        extgen generate model Model.definition.GoesHere
      #+END_SRC
 *** Panel | Form
     - /-layout=<String>/ set layout type
@@ -54,14 +57,14 @@
 **** Example
      Create Panel
      #+BEGIN_SRC
-        extgen panel Panel.definition.GoesHere -layout=hbox
+        extgen generate panel Panel.definition.GoesHere -layout=hbox
      #+END_SRC
 *** Controller
     Currently has no options
 **** Example
      Create Controller
      #+BEGIN_SRC
-        extgen controller Controller.definition.GoesHere
+        extgen generate controller Controller.definition.GoesHere
      #+END_SRC
 
 * Installation
