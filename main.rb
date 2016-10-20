@@ -24,6 +24,8 @@ g = Generator.new(params[:tpl], params[:path], params[:options]).generate()
 
 if params[:options].include? "-o"
   g.print
-else
+elsif params[:command] == "gen" or params[:command] == "generate"
   g.create
+elsif params[:command] == "rm" or params[:command] == "remove"
+  g.remove
 end
