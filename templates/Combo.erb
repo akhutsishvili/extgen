@@ -1,11 +1,14 @@
 <% if option? '-s' %>
     <% store = Script.new(self).create_store() %>
 <% end %>
-
+<% if command? 'rm' %>
+    <% Script.new(self).remove_store() %>
+<% end %>
 Ext.define('<%=@full_path%>', {
     extend: 'Ext.form.ComboBox',
     alias: 'widget.<%=@element_alias%>',
     name: '',
+    queryMode: 'local',
     fieldLabel: '',
     valueField: '',
     displayField: '',
