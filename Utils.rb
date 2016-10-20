@@ -74,11 +74,18 @@ class Utils
     write_to_file(full_file_path, code)
   end
 
+  def delete_file(path, type)
+    full_file_path = $project_root + "/" + $config[:path_to_ext_app] + path_to_file(path, type)
+    puts "Remove #{type} in #{full_file_path}"
+    File.delete(full_file_path)
+  end
+
   def parse_argv
     {
-      :tpl => ARGV[0],
-      :path => ARGV[1],
-      :options => ARGV[2..-1]
+      :command => ARGV[0],
+      :tpl => ARGV[1],
+      :path => ARGV[2],
+      :options => ARGV[3..-1]
     }
   end
 

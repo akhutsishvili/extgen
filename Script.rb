@@ -11,7 +11,15 @@ class Script
     Generator.new('store', @path, @options).generate().create().get_full_path
   end
 
+  def remove_store
+    Generator.new('store', @path, @options).generate().remove().get_full_path
+  end
+
   def create_model
     Generator.new('model', @path, @options).generate().create().get_full_path
+  end
+
+  def remove_model
+    Generator.new('model', @path, @options).generate().remove().get_full_path
   end
 end

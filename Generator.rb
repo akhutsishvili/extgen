@@ -42,6 +42,10 @@ class Generator
     @options.include? option
   end
 
+  def command? command
+    ARGV[0] == command
+  end
+
   def get_full_path
     @full_path
   end
@@ -49,6 +53,7 @@ class Generator
   def generate
     self.set_tpl_file
     self.generate_code_from_template()
+    puts "Element full path: #{@full_path}"
     self
   end
 
@@ -58,6 +63,11 @@ class Generator
 
   def create
     Utils.new().create_file(@path, @tpl_type, @code)
+    self
+  end
+
+  def remove
+    Utils.new().delete_file(@path, @tpl_type)
     self
   end
   
