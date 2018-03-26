@@ -20,4 +20,11 @@ Ext.define('<%=@full_path%>', {
         me.callParent(arguments)
     }
     <% end %>
+    <% if option? '-l' %>
+    listeners: {
+        beforerender: function (combo) {
+            combo.getStore().load()
+        }
+    }
+    <% end %>
 })
